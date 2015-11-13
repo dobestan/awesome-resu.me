@@ -26,6 +26,6 @@ NOSE_ARGS = [
     '--nocapture',
 
     '--with-coverage',
-    '--cover-package=lmstfy,multisites,search',
+    '--cover-package=awesome_resume,multisites',
     '--cover-inclusive',
 ]
