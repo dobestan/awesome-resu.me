@@ -10,7 +10,7 @@ clean:
 
 # target: migrate - Migrate all django applications considering app dependencies
 migrate:
-	python awesome_resume/manage.py makemigrations
+	python awesome_resume/manage.py makemigrations multisites
 	python awesome_resume/manage.py migrate
 
 
