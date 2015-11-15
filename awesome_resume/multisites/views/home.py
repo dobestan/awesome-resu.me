@@ -1,11 +1,11 @@
-from django.views.generic import View
+from django.views.generic import TemplateView
 from django.http import HttpResponse, Http404
 
 from multisites.utils.github import GithubRepository
-from markup.utils.renderer import MarkupRenderer
 
 
-class HomeView(View):
+class HomeView(TemplateView):
+    template_name = 'resume.html'
 
     def dispatch(self, *args, **kwargs):
 
@@ -14,14 +14,19 @@ class HomeView(View):
 
         self.github_repository = GithubRepository(self.subdomain)
 
-        return super(HomeView, self).dispatch(*args, **kwargs)
-
-    def get(self, request, *args, **kwargs):
+        # TODO: Speed-up this rendering process via caching.
+        # README.md does not needed to be update on every request.
+        self.rendered_readme_content = self.github_repository.get_rendered_readme_content()
 
         # TODO: Should redirect to main site if repository does not exist.
         if not self.github_repository.is_repository_valid():
             raise Http404("Github Repository does not exist")
 
-        return HttpResponse(
-            self.github_repository.get_rendered_readme_content(),
-        )
+        return super(HomeView, self).dispatch(*args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super(HomeView, self).get_context_data(**kwargs)
+
+        context['resume'] = self.rendered_readme_content
+
+        return context
