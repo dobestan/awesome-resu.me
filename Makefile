@@ -21,5 +21,6 @@ clean_migrations:
 
 # target: test - execute project related tests including coding convention and unittest
 test:
-	flake8 awesome_resume/
+	rubocop ./
+	flake8 ./
 	awesome_resume/manage.py test awesome_resume/ -v 2
