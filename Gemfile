@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'github-markdown'
+gem 'github-markup'
 
 group :development, :test do
   gem 'rubocop'
