@@ -1,26 +1,29 @@
 from django.test import TestCase
 
-from multisites.utils.github import *
+from multisites.utils.github import GithubRepository
 
 
 class GithubUtilsTestCase(TestCase):
 
     def setUp(self):
         self.username = 'dobestan'
+        self.github_repository = GithubRepository(self.username)
 
         self.valid_github_repository_url = "https://github.com/dobestan/awesome-dobestan"
-        self.invalid_github_repository_url = "https://github.com/dobestan/not-awesome-dobestan"
+
+        self.invalid_username = 'invalid_dobestan'
+        self.invalid_github_repository = GithubRepository(self.invalid_username)
 
     def test_get_repository_url(self):
         self.assertEqual(
-            get_repository_url(self.username),
+            self.github_repository.get_repository_url(),
             self.valid_github_repository_url,
         )
 
     def test_is_repository_valid(self):
         self.assertTrue(
-            is_repository_valid(self.valid_github_repository_url),
+            self.github_repository.is_repository_valid(),
         )
         self.assertFalse(
-            is_repository_valid(self.invalid_github_repository_url),
+            self.invalid_github_repository.is_repository_valid(),
         )

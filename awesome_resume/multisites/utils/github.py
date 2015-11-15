@@ -1,20 +1,25 @@
 import requests
 
 
-def get_repository_url(username):
-    """Return full github url with <username>/awesome-<username>."""
+class GithubRepository(object):
 
-    repository_url = "https://github.com/{username}/awesome-{username}".format(
-        username=username,
-    )
-    return repository_url
+    def __init__(self, username, *args, **kwargs):
+        self.username = username
+        self.repository_url = self.get_repository_url()
 
+    def get_repository_url(self):
+        """Return full github url with <username>/awesome-<username>."""
 
-def is_repository_valid(repository_url):
-    """Check given github repository url is valid or not."""
+        repository_url = "https://github.com/{username}/awesome-{username}".format(
+            username=self.username,
+        )
+        return repository_url
 
-    response = requests.get(repository_url)
+    def is_repository_valid(self):
+        """Check given github repository url is valid or not."""
 
-    if response.status_code == 200:
-        return True
-    return False
+        response = requests.get(self.repository_url)
+
+        if response.status_code == 200:
+            return True
+        return False
