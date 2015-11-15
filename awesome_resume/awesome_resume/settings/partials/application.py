@@ -31,6 +31,7 @@ INSTALLED_APPS = (
     'django.contrib.sites',
 
     'multisites',
+    'markup',
 )
 
 MIDDLEWARE_CLASSES = (
