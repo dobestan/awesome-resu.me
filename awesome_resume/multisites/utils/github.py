@@ -46,3 +46,12 @@ class GithubRepository(object):
         # default type of response.content is "bytes".
         # return type should be a "str" with UTF8 encoding.
         return response.content.decode('utf8')
+
+    def get_rendered_readme_content(self):
+        """Return README.md contents rendered to HTML format."""
+        from markup.utils.renderer import MarkupRenderer
+
+        rendered_readme_content = MarkupRenderer.render(
+            self.get_readme_content(),
+        )
+        return rendered_readme_content
