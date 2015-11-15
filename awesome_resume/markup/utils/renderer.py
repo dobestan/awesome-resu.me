@@ -16,7 +16,6 @@ class MarkupRenderer(object):
 
         result = subprocess.check_output(
             [
-                'ruby',
                 MarkupRenderer.ruby_executable,
                 filename,
                 content,

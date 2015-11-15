@@ -1,3 +1,5 @@
+#!/usr/bin/env ruby
+
 require 'github/markup'
 
 filename = ARGV[0]
